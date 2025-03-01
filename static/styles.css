@@ -1,0 +1,72 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #e7e5e5;
+}
+
+.login-container {
+    background-color: white;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 100%;
+    margin-bottom: 10px; /* Add margin between the buttons */
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* .difficulty-container { */
+    /* display: flex; */
+    /* flex-direction: column; */
+     /*Stack buttons vertically */
+    /* justify-content: center; */
+    /* align-items: center; */
+     /*Center buttons horizontally */
+    /* gap: 15px; */
+     /*This creates space between the buttons */
+    /* padding: 20px; */
+/* } */
+
+table {
+    margin-top: 20px;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+input[type="number"] {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    text-align: center;
+}
+

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Level - Sudoku Solver</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <!-- <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='static/styles.css') }}"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="play-level-container">
+        <h1>Select Sudoku Level</h1>
+        <button onclick="startGame('easy')">Easy</button>
+        <button onclick="startGame('medium')">Medium</button>
+        <button onclick="startGame('hard')">Hard</button>
+    </div>
+
+    <script>
+        function startGame(level) {
+            window.location.href = `/sudoku/${level}`;
+        }
+    </script>
+</body>
+</html>
