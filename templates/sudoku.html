@@ -3,29 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sudoku Solver</title>
-    <!-- <link rel="stylesheet" href="styles.css"> -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Sudoku Player</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='static/styles.css') }}">
+    <!-- <script src="{{ url_for('static', filename='js/main.js') }}"></script> -->
 </head>
 <body>
-    <div class="sudoku-container">
-        <h1>Sudoku Puzzle</h1>
-        <form id="sudoku-form">
-            <table>
-                <tbody>
-                    <!-- You will have 9 rows and 9 columns for the sudoku grid -->
-                    <!-- This is just a basic example with placeholders -->
-                    {% for i in range(9) %}
+    <div class="container">
+        <!-- Game Header: Difficulty level -->
+        <div class="header">
+            <h1>Sudoku Game</h1>
+            <h3>Difficulty Level: {{ difficulty }}</h3>
+        </div>
+
+        <!-- Sudoku Board: A 9x9 grid for the player to fill -->
+        <div class="sudoku-container">
+            <table class="sudoku-board">
+                {% for row in range(9) %}
                     <tr>
-                        {% for j in range(9) %}
-                        <td><input type="number" min="1" max="9" placeholder="{{ (i*9 + j + 1) }}" id="cell-{{ i }}-{{ j }}"></td>
+                        {% for col in range(9) %}
+                            <td>
+                                {% if puzzle[row][col] != 0 %}
+                                    <input type="text" class="cell" value="{{ puzzle[row][col] }}" disabled>
+                                {% else %}
+                                    <input type="text" class="cell" id="cell-{{ row }}-{{ col }}" maxlength="1" oninput="updateCell(event)">
+                                {% endif %}
+                            </td>
                         {% endfor %}
                     </tr>
-                    {% endfor %}
-                </tbody>
+                {% endfor %}
             </table>
-            <button type="submit">Solve Sudoku</button>
-        </form>
+        </div>
+
+        <!-- Buttons: Check Solution and Reset -->
+        <div class="controls">
+            <button onclick="checkSolution()">Check Solution</button>
+            <button onclick="resetBoard()">Reset Board</button>
+        </div>
+
+        <!-- Status: Display result or hints -->
+        <div id="status"></div>
     </div>
 </body>
 </html>

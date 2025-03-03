@@ -70,3 +70,60 @@ input[type="number"] {
     text-align: center;
 }
 
+/* Overall styling for the Sudoku grid */
+.sudoku-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr); /* 9 equal columns */
+    grid-template-rows: repeat(9, 1fr); /* 9 equal rows */
+    gap: 0;
+    width: 450px;
+    height: 450px;
+    border: 2px solid black; /* Border for the whole grid */
+}
+
+/* Styling for each individual cell */
+.cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc; /* Thin border for individual cells */
+    font-size: 24px;
+}
+
+/* Thicker borders for 3x3 subgrids */
+.sudoku-grid .cell:nth-child(3n) {
+    border-right: 3px solid black; /* Thicker border on the right for every 3rd cell */
+}
+
+.sudoku-grid .cell:nth-child(9n+1) {
+    border-left: 3px solid black; /* Thicker border on the left for every 1st cell of a row */
+}
+
+.sudoku-grid .cell:nth-child(n + 73) {
+    border-bottom: 3px solid black; /* Thicker bottom border on every last row */
+}
+
+.sudoku-grid .cell:nth-child(3),
+.sudoku-grid .cell:nth-child(6),
+.sudoku-grid .cell:nth-child(9),
+.sudoku-grid .cell:nth-child(12),
+.sudoku-grid .cell:nth-child(15),
+.sudoku-grid .cell:nth-child(18),
+.sudoku-grid .cell:nth-child(21),
+.sudoku-grid .cell:nth-child(24),
+.sudoku-grid .cell:nth-child(27) {
+    border-right: 3px solid black; /* Thicker right border every 3rd column */
+}
+
+.sudoku-grid .cell:nth-child(1),
+.sudoku-grid .cell:nth-child(2),
+.sudoku-grid .cell:nth-child(3),
+.sudoku-grid .cell:nth-child(10),
+.sudoku-grid .cell:nth-child(11),
+.sudoku-grid .cell:nth-child(12),
+.sudoku-grid .cell:nth-child(19),
+.sudoku-grid .cell:nth-child(20),
+.sudoku-grid .cell:nth-child(21) {
+    border-bottom: 3px solid black; /* Thicker bottom border every 3rd row */
+}
+

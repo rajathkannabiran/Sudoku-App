@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
+from sudoku_logic.game import generate_puzzle, validate_solution
 
 app = Flask(__name__)
 
@@ -23,7 +24,15 @@ def difficulty():
 def sudoku(level):
     # Depending on the level (easy, medium, hard), fetch the appropriate sudoku puzzle
     # return f"Starting a {level} Sudoku game."
-    return render_template('sudoku.html', level=level)
+    # return render_template('sudoku.html', level=level)
+
+    # print("level: ", level)
+
+    # difficulty = request.args.get('difficulty', 'easy')
+    # difficulty = request.args.get('difficulty', level=level)
+    puzzle = generate_puzzle(level)
+    return render_template('sudoku.html', puzzle=puzzle, difficulty=level)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
