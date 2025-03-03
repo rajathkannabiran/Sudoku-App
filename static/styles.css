@@ -70,60 +70,115 @@ input[type="number"] {
     text-align: center;
 }
 
-/* Overall styling for the Sudoku grid */
-.sudoku-grid {
-    display: grid;
-    grid-template-columns: repeat(9, 1fr); /* 9 equal columns */
-    grid-template-rows: repeat(9, 1fr); /* 9 equal rows */
-    gap: 0;
-    width: 450px;
-    height: 450px;
-    border: 2px solid black; /* Border for the whole grid */
-}
-
-/* Styling for each individual cell */
-.cell {
+/* General layout for the entire page */
+body {
+    font-family: Arial, sans-serif;
     display: flex;
-    align-items: center;
     justify-content: center;
-    border: 1px solid #ccc; /* Thin border for individual cells */
-    font-size: 24px;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
 }
 
-/* Thicker borders for 3x3 subgrids */
-.sudoku-grid .cell:nth-child(3n) {
-    border-right: 3px solid black; /* Thicker border on the right for every 3rd cell */
+/* Container for the entire Sudoku game */
+.container {
+    width: 500px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.sudoku-grid .cell:nth-child(9n+1) {
-    border-left: 3px solid black; /* Thicker border on the left for every 1st cell of a row */
+/* Game header (title and difficulty level) */
+.header {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-.sudoku-grid .cell:nth-child(n + 73) {
-    border-bottom: 3px solid black; /* Thicker bottom border on every last row */
+/* Sudoku board container */
+.sudoku-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.sudoku-grid .cell:nth-child(3),
-.sudoku-grid .cell:nth-child(6),
-.sudoku-grid .cell:nth-child(9),
-.sudoku-grid .cell:nth-child(12),
-.sudoku-grid .cell:nth-child(15),
-.sudoku-grid .cell:nth-child(18),
-.sudoku-grid .cell:nth-child(21),
-.sudoku-grid .cell:nth-child(24),
-.sudoku-grid .cell:nth-child(27) {
-    border-right: 3px solid black; /* Thicker right border every 3rd column */
+/* Sudoku board table */
+.sudoku-board {
+    border-collapse: collapse;
 }
 
-.sudoku-grid .cell:nth-child(1),
-.sudoku-grid .cell:nth-child(2),
-.sudoku-grid .cell:nth-child(3),
-.sudoku-grid .cell:nth-child(10),
-.sudoku-grid .cell:nth-child(11),
-.sudoku-grid .cell:nth-child(12),
-.sudoku-grid .cell:nth-child(19),
-.sudoku-grid .cell:nth-child(20),
-.sudoku-grid .cell:nth-child(21) {
-    border-bottom: 3px solid black; /* Thicker bottom border every 3rd row */
+/* Each cell (input box) inside the table */
+.sudoku-board td {
+    width: 50px;
+    height: 50px;
+    padding: 5px;
+    text-align: center;
+    vertical-align: middle;
 }
 
+.sudoku-board input.cell {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Disable input fields for pre-filled numbers */
+.sudoku-board input:disabled {
+    background-color: #f0f0f0;
+    color: black;
+}
+
+/* Darker borders for subgrids */
+.sudoku-board tr:nth-child(3n) td {
+    border-bottom: 3px solid black;
+}
+
+.sudoku-board td:nth-child(3n) {
+    border-right: 3px solid black;
+}
+
+/* Darker borders for top and left sides of subgrids */
+.sudoku-board tr:nth-child(1), 
+.sudoku-board tr:nth-child(4), 
+.sudoku-board tr:nth-child(7) {
+    border-top: 3px solid black; /* Darker border for the top of the subgrids */
+}
+
+.sudoku-board td:nth-child(1), 
+.sudoku-board td:nth-child(4), 
+.sudoku-board td:nth-child(7) {
+    border-left: 3px solid black; /* Darker border for the left of the subgrids */
+}
+
+/* Styling for the controls (buttons) */
+.controls {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.controls button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.controls button:hover {
+    background-color: #45a049;
+}
+
+/* Status display */
+#status {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 18px;
+}
