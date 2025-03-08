@@ -1,5 +1,6 @@
 def generate_puzzle(difficulty):
     # For simplicity, we'll return a solved grid here; you'd want to implement the puzzle generation logic.
+    print("------> generate puzzle")
     puzzle = [
         [5, 3, 0, 0, 7, 0, 0, 0, 0],
         [6, 0, 0, 1, 9, 5, 0, 0, 0],

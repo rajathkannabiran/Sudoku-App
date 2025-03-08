@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from sudoku_logic.game import generate_puzzle, validate_solution
 
 app = Flask(__name__)
@@ -32,6 +32,24 @@ def sudoku(level):
     # difficulty = request.args.get('difficulty', level=level)
     puzzle = generate_puzzle(level)
     return render_template('sudoku.html', puzzle=puzzle, difficulty=level)
+
+@app.route('/submit_sudoku', methods=['POST'])
+def submit_sudoku():
+    data = request.get_json()
+    solution = data.get('solution')
+
+    # Validate the solution using the validate_solution function
+    if validate_solution(solution):
+        # If the solution is correct
+        return jsonify({"is_valid": True})
+    else:
+        # If the solution is incorrect
+        return jsonify({"is_valid": False})
+
+@app.route('/success')
+def success():
+    return render_template('success.html', message="Congratulations! The solution is correct.")
+
 
 
 if __name__ == '__main__':

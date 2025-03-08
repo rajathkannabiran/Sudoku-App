@@ -1,33 +1,27 @@
-function checkSolution() {
-    const solution = [];
-    for (let row = 0; row < 9; row++) {
-        let rowValues = [];
-        for (let col = 0; col < 9; col++) {
-            const cell = document.getElementById(`cell-${row}-${col}`);
-            rowValues.push(cell.value ? parseInt(cell.value) : 0);
-        }
-        solution.push(rowValues);
-    }
+console.log('script.js is loaded');
 
-    // Send the solution to the Flask backend for validation
-    fetch('/validate', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ solution }),
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.is_valid) {
-            document.getElementById('status').textContent = 'Congratulations! You solved the puzzle!';
-            document.getElementById('status').style.color = 'green';
-        } else {
-            document.getElementById('status').textContent = 'Oops! Try again!';
-            document.getElementById('status').style.color = 'red';
-        }
-    });
-}
+document.addEventListener("DOMContentLoaded", function () {
+    // Add event listener to the submit button
+    const submitButton = document.getElementById("submit-btn");
+
+    if (submitButton) {
+        submitButton.addEventListener("click", function (event) {
+            console.log("Submit button clicked!");
+            submitSolution(event); // Call submitSolution here
+        });
+    } else {
+        console.log("Submit button not found!");
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Add event listener to the submit button
+    const submitButton = document.getElementById("submit-btn");
+    
+    if (submitButton) {
+        submitButton.addEventListener("click", submitSolution);
+    }
+});
 
 function resetBoard() {
     const inputs = document.querySelectorAll('.cell');
@@ -39,8 +33,86 @@ function resetBoard() {
     document.getElementById('status').textContent = '';
 }
 
-// Other functions like updateCell and any other logic
+function submitSolution(event) {
+    // console.log('----> check soln')
+    event.preventDefault(); // Prevent page reload on form submit
+    console.log("submitSolution function called!");
+    const gridMatrix = [];
 
+    try {
+        // Loop through the grid and extract values
+        for (let row = 0; row < 9; row++) {
+            const rowValues = [];
+            for (let col = 0; col < 9; col++) {
+                const cell = document.getElementById(`cell-${row}-${col}`);
+                if (!cell) {
+                    console.error(`Cell not found for row ${row}, col ${col}`);
+                    continue;  // Skip if the cell doesn't exist
+                }
+        
+                // Fetch the value from the cell
+                let cellValue;
+
+                // If the cell is disabled, fetch the value using 'value' attribute
+                if (cell.disabled) {
+                    // Get value from the 'value' attribute for disabled cells
+                    cellValue = cell.getAttribute('value');
+                } else {
+                    // Get value from the normal input value
+                    cellValue = cell.value;
+                }
+
+                // If the value is empty (for empty cells), set it to 0
+                if (cellValue === "") {
+                    cellValue = 0;
+                } else {
+                    // Otherwise, parse it as an integer
+                    cellValue = parseInt(cellValue);
+                }
+        
+                // console.log(`Cell (${row},${col}): ${cellValue}`);  // Log each cell's value
+        
+                // console.log("Extracted -----> ", cellValue);
+                rowValues.push(cellValue);
+            }
+            gridMatrix.push(rowValues);
+
+            console.log("-----> loop :");
+        }
+
+        // Log the grid matrix for debugging
+        console.log("Extracted Grid Matrix:", gridMatrix);
+    } catch (error) {
+        console.error("Error in extracting grid matrix:", error);
+    }
+
+
+    // Send the grid data to the backend for validation
+    fetch('/submit_sudoku', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ solution: gridMatrix }) // Send the solution to Flask
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.is_valid) {
+            // If solution is correct, redirect to success page
+            window.location.href = "/success";
+        } else {
+            // If solution is incorrect, show error message
+            const statusElement = document.getElementById('status');
+            statusElement.textContent = 'Incorrect solution. Please try again!';
+            statusElement.style.color = 'red'; // Highlight the error message
+        }
+    })
+    .catch(error => {
+        console.error('Error submitting the solution:', error);
+    });
+}
+
+// Other functions like updateCell and any other logic
 function updateCell(event) {
     const input = event.target;
     let value = input.value;

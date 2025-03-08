@@ -23,7 +23,7 @@
                         {% for col in range(9) %}
                             <td>
                                 {% if puzzle[row][col] != 0 %}
-                                    <input type="text" class="cell" value="{{ puzzle[row][col] }}" disabled>
+                                    <input type="text" class="cell" id="cell-{{ row }}-{{ col }}" value="{{ puzzle[row][col] }}" disabled>
                                 {% else %}
                                     <input type="text" class="cell" id="cell-{{ row }}-{{ col }}" maxlength="1" oninput="updateCell(event)">
                                 {% endif %}
@@ -35,10 +35,14 @@
         </div>
 
         <!-- Buttons: Check Solution and Reset -->
+        <!-- <form id="sudoku-form"> -->
         <div class="controls">
-            <button onclick="checkSolution()">Check Solution</button>
+            <!-- <button onclick="submitSolution(event)">Submit</button> -->
+            <button id="submit-btn">Submit</button>
             <button onclick="resetBoard()">Reset Board</button>
+            <button onclick="checkSolution()">Check Solution</button>
         </div>
+        <!-- </form> -->
 
         <!-- Status: Display result or hints -->
         <div id="status"></div>
