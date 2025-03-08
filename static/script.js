@@ -1,19 +1,5 @@
-console.log('script.js is loaded');
 
-document.addEventListener("DOMContentLoaded", function () {
-    // Add event listener to the submit button
-    const submitButton = document.getElementById("submit-btn");
-
-    if (submitButton) {
-        submitButton.addEventListener("click", function (event) {
-            console.log("Submit button clicked!");
-            submitSolution(event); // Call submitSolution here
-        });
-    } else {
-        console.log("Submit button not found!");
-    }
-});
-
+// Action: For invoking the submit button
 document.addEventListener("DOMContentLoaded", function() {
     // Add event listener to the submit button
     const submitButton = document.getElementById("submit-btn");
@@ -23,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+// Action: Reset Button, to clear the Grid
 function resetBoard() {
     const inputs = document.querySelectorAll('.cell');
     inputs.forEach(input => {
@@ -33,10 +20,9 @@ function resetBoard() {
     document.getElementById('status').textContent = '';
 }
 
+// Action: User to submit after solving
 function submitSolution(event) {
-    // console.log('----> check soln')
     event.preventDefault(); // Prevent page reload on form submit
-    console.log("submitSolution function called!");
     const gridMatrix = [];
 
     try {
@@ -55,10 +41,8 @@ function submitSolution(event) {
 
                 // If the cell is disabled, fetch the value using 'value' attribute
                 if (cell.disabled) {
-                    // Get value from the 'value' attribute for disabled cells
                     cellValue = cell.getAttribute('value');
                 } else {
-                    // Get value from the normal input value
                     cellValue = cell.value;
                 }
 
@@ -69,15 +53,10 @@ function submitSolution(event) {
                     // Otherwise, parse it as an integer
                     cellValue = parseInt(cellValue);
                 }
-        
                 // console.log(`Cell (${row},${col}): ${cellValue}`);  // Log each cell's value
-        
-                // console.log("Extracted -----> ", cellValue);
                 rowValues.push(cellValue);
             }
             gridMatrix.push(rowValues);
-
-            console.log("-----> loop :");
         }
 
         // Log the grid matrix for debugging
@@ -149,8 +128,6 @@ function blockNonDigitKeys(event) {
         event.preventDefault(); // Prevent the non-digit key press
     }
 }
-
-
 
 // Add event listeners after the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", function () {

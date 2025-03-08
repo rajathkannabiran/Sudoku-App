@@ -23,12 +23,7 @@ def difficulty():
 @app.route('/sudoku/<level>')
 def sudoku(level):
     # Depending on the level (easy, medium, hard), fetch the appropriate sudoku puzzle
-    # return f"Starting a {level} Sudoku game."
-    # return render_template('sudoku.html', level=level)
 
-    # print("level: ", level)
-
-    # difficulty = request.args.get('difficulty', 'easy')
     # difficulty = request.args.get('difficulty', level=level)
     puzzle = generate_puzzle(level)
     return render_template('sudoku.html', puzzle=puzzle, difficulty=level)
@@ -36,7 +31,9 @@ def sudoku(level):
 @app.route('/submit_sudoku', methods=['POST'])
 def submit_sudoku():
     data = request.get_json()
+    print('Json grid data : {data}')
     solution = data.get('solution')
+    print('Soln grid data : {solution}')
 
     # Validate the solution using the validate_solution function
     if validate_solution(solution):
@@ -48,8 +45,7 @@ def submit_sudoku():
 
 @app.route('/success')
 def success():
-    return render_template('success.html', message="Congratulations! The solution is correct.")
-
+    return render_template('result.html', message="Congratulations! The solution is correct.")
 
 
 if __name__ == '__main__':
